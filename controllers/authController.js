@@ -1,8 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
-import { supabase } from '../config/supabase.js';
-
+//Register
 export const register = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
@@ -36,14 +35,12 @@ export const login = async (req, res) => {
 // Get current user info
 export const getCurrentUser = async (req, res) => {
   try {
-    // User is already attached to req by the auth middleware
     const user = req.user;
     
     if (!user) {
       return res.status(401).json({ message: 'Not authenticated' });
     }
     
-    // Return user info without sensitive data
     res.json({ 
       id: user._id,
       name: user.name,
